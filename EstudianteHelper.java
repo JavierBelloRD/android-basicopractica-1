@@ -2,50 +2,47 @@ import static java.lang.System.out;
 
 public class EstudianteHelper
 {
-	private int edad = 0; 
+	private int edadMinima = 0; 
+	private int edadMaxima = 0; 
+	private int edadPromedio = 0;
 	private Estudiante[] estudiantes;
 	
 	public EstudianteHelper(Estudiante[] estudiantes)
 	{
 		this.estudiantes = estudiantes;
+
+		Calculate();
+	}
+
+	private void Calculate()
+	{
+		for(Estudiante estudiante : estudiantes)
+		{ 
+			if(edadMinima > estudiante.getEdad() | edadMinima == 0)
+				edadMinima = estudiante.getEdad();
+
+			if(edadMaxima < estudiante.getEdad() | edadMaxima == 0)
+				edadMaxima = estudiante.getEdad();
+
+			edadPromedio += estudiante.getEdad();
+		}
+
+		edadPromedio = edadPromedio / getTotalEstudiante();
 	}
 
     public int getEdadMinima()
-	{ 
-		edad = 0;
-
-		for(Estudiante estudiante : estudiantes)
-		{ 
-			if(edad > estudiante.getEdad() | edad == 0)
-				edad = estudiante.getEdad();
-		}
-
-		return edad;
+	{  
+		return edadMinima;
 	}
 
 	public int getEdadMixima()
-	{
-		edad = 0;
-
-		for(Estudiante estudiante : estudiantes)
-		{
-			if(edad < estudiante.getEdad() | edad == 0)
-				edad = estudiante.getEdad();
-		}
-
-		return edad;
+	{ 
+		return edadMaxima;
 	}
 
 	public int getEdadPromedio()
-	{
-		int totalEdad = 0;
-
-		for(Estudiante estudiante : estudiantes)
-		{ 
-			totalEdad += estudiante.getEdad();
-		}
-
-		return totalEdad / getTotalEstudiante();
+	{ 
+		return edadPromedio;
 	}
 
 	public int getTotalEstudiante()
